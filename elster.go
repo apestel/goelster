@@ -118,11 +118,11 @@ func DecodeValue(b []byte, t ElsterType) interface{} {
 
 	case et_err_nr:
 		for _, value := range ErrorList {
-			if value.Index == b[0] {
+			if value.Index == byte(binary.BigEndian.Uint16(b)) {
 				return value.Name
 			}
 		}
-		return b[0]
+		return byte(binary.BigEndian.Uint16(b))
 	}
 
 	// default
