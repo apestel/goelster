@@ -95,6 +95,26 @@ func CanScan(bus *can.Bus, sender uint16, receiver uint16) {
 	}
 }
 
+func CanScanError(bus *can.Bus, sender uint16, receiver uint16) {
+	go bus.ConnectAndPublish()
+	defer bus.Disconnect()
+
+	for _, r := range ElsterErrors {
+		if frm := readRegister(bus, sender, receiver, r); frm != nil {
+			_, payload := Payload(frm.Data[:])
+			val := DecodeValue(payload, r.Type)
+
+			if val != nil {
+				if RawLog {
+					LogFrame(*frm)
+				} else {
+					LogRegisterValue(val, r)
+				}
+			}
+		}
+	}
+}
+
 func CanRead(bus *can.Bus, sender uint16, receiver uint16, register uint16) {
 	r := Reading(register)
 	if r == nil {

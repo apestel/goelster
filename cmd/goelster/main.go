@@ -19,6 +19,7 @@ type Command int
 const (
 	dump Command = iota
 	scan
+	scan_error
 	read
 	write
 )
@@ -80,6 +81,10 @@ COPYRIGHT:
 			Name:  "verbose, v",
 			Usage: "verbose mode",
 		},
+		cli.BoolFlag{
+			Name:  "error, e",
+			Usage: "filter on errors only",
+		},
 	}
 
 	app.Action = func(c *cli.Context) error {
@@ -131,6 +136,9 @@ COPYRIGHT:
 				} else {
 					register = uint16(reg)
 				}
+				if c.Bool("error") {
+					command = scan_error
+				}
 			}
 
 			if len(a) > 2 {
@@ -167,6 +175,8 @@ COPYRIGHT:
 			CanDump(bus)
 		case scan:
 			CanScan(bus, sender, receiver)
+		case scan_error:
+			CanScanError(bus, sender, receiver)
 		case read:
 			CanRead(bus, sender, receiver, register)
 		case write:

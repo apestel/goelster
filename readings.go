@@ -29,6 +29,7 @@ type ElsterReading struct {
 }
 
 var ElsterReadings []*ElsterReading
+var ElsterErrors []*ElsterReading
 
 /**
  * Elster reading definitions from can_progs
@@ -38,6 +39,30 @@ var ElsterReadings []*ElsterReading
  */
 
 func init() {
+
+	ElsterErrors = []*ElsterReading{
+		{"FEHLERFELD_6", 0x0b06, et_err_nr},
+		{"FEHLERFELD_13", 0x0b0d, et_err_nr},
+		{"FEHLERFELD_20", 0x0b14, et_err_nr},
+		{"FEHLERFELD_27", 0x0b1b, et_err_nr},
+		{"FEHLERFELD_34", 0x0b22, et_err_nr},
+		{"FEHLERFELD_41", 0x0b29, et_err_nr},
+		{"FEHLERFELD_48", 0x0b30, et_err_nr},
+		{"FEHLERFELD_55", 0x0b37, et_err_nr},
+		{"FEHLERFELD_62", 0x0b3e, et_err_nr},
+		{"FEHLERFELD_69", 0x0b45, et_err_nr},
+		{"FEHLERFELD_76", 0x0b4c, et_err_nr},
+		{"FEHLERFELD_83", 0x0b53, et_err_nr},
+		{"FEHLERFELD_90", 0x0b5a, et_err_nr},
+		{"FEHLERFELD_97", 0x0b61, et_err_nr},
+		{"FEHLERFELD_104", 0x0b68, et_err_nr},
+		{"FEHLERFELD_111", 0x0b6f, et_err_nr},
+		{"FEHLERFELD_118", 0x0b76, et_err_nr},
+		{"FEHLERFELD_125", 0x0b7d, et_err_nr},
+		{"FEHLERFELD_132", 0x0b84, et_err_nr},
+		{"FEHLERFELD_139", 0x0b8b, et_err_nr},
+	}
+
 	ElsterReadings = []*ElsterReading{
 		{"FEHLERMELDUNG", 0x0001, 0},
 		{"KESSELSOLLTEMP", 0x0002, et_dec_val},
