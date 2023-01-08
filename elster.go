@@ -66,6 +66,10 @@ func Reading(register uint16) *ElsterReading {
 }
 
 func DecodeValue(b []byte, t ElsterType) interface{} {
+	if bytes.Equal(b, []byte{0x00, 0x1a}) || bytes.Equal(b, []byte{0x1a, 0x00}) || bytes.Equal(b, []byte{0x1e, 0x00}) || bytes.Equal(b, []byte{0x00, 0x1e}) {
+		return fmt.Sprintf("POTENTIAL ERROR: 0x%04x", binary.BigEndian.Uint16(b))
+	}
+
 	if bytes.Equal(b, []byte{0x80, 0x00}) {
 		return nil
 	}
