@@ -115,6 +115,14 @@ func DecodeValue(b []byte, t ElsterType) interface{} {
 		}
 		log.Fatalf("Invalid bool % x", b)
 		return nil
+
+	case et_err_nr:
+		for _, value := range ErrorList {
+			if value.Index == b[0] {
+				return value.Name
+			}
+		}
+		return b[0]
 	}
 
 	// default

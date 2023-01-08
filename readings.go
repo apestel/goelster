@@ -28,8 +28,14 @@ type ElsterReading struct {
 	Type  ElsterType
 }
 
+type ErrorType struct {
+	Index byte
+	Name  string
+}
+
 var ElsterReadings []*ElsterReading
 var ElsterErrors []*ElsterReading
+var ErrorList []*ErrorType
 
 /**
  * Elster reading definitions from can_progs
@@ -39,6 +45,33 @@ var ElsterErrors []*ElsterReading
  */
 
 func init() {
+
+	ErrorList = []*ErrorType{
+		{0x0002, "Schuetz colle"},
+		{0x0003, "ERR CAPTEUR HD"},
+		{0x0004, "Haute pression"},
+		{0x0005, "Détecteur d'évaporateur"},
+		{0x0006, "Pilote de relais"},
+		{0x0007, "Niveau du relais"},
+		{0x0008, "Commutateur hexadécimal"},
+		{0x0009, "Vitesse du ventilateur"},
+		{0x000a, "Pilote de ventilateur"},
+		{0x000b, "Réinitialisation du module"},
+		{0x000c, "ND"},
+		{0x000d, "ROM"},
+		{0x000e, "SOURCE MINTEMP"},
+		{0x0010, "Dégivrage"},
+		{0x0012, "ERR T-HEI IWS"},
+		{0x0017, "ERR T-FRO IWS"},
+		{0x001a, "Basse pression"},
+		{0x001b, "ERR BP-PRESSION"},
+		{0x001c, "ERR HD-DRUCK"},
+		{0x001d, "MAX CAPTEUR HD"},
+		{0x001e, "MAX GAZ CHAUD"},
+		{0x001f, "ERR CAPTEUR HD"},
+		{0x0020, "Antigel"},
+		{0x0021, "PAS DE PERFORMANCE"},
+	}
 
 	ElsterErrors = []*ElsterReading{
 		{"FEHLERFELD_6", 0x0b06, et_err_nr},

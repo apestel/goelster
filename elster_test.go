@@ -40,7 +40,7 @@ func TestEncodeFrame(t *testing.T) {
 	r := *Reading(0x0002) // decimal value
 	val := 32.1           // 312 -> 0x0141
 	rcvr := uint16(0x500)
-	frame := RequestFrame(rcvr, r)
+	frame := RequestFrame(rcvr, &r)
 
 	expected := []byte{0xA1, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00}
 	if !bytes.Equal(frame, expected) {
@@ -50,7 +50,7 @@ func TestEncodeFrame(t *testing.T) {
 	r = *Reading(0x0002) // decimal value
 	val = 32.1           // 312 -> 0x0141
 	rcvr = uint16(0x500)
-	frame = DataFrame(rcvr, val, r)
+	frame = DataFrame(rcvr, val, &r)
 
 	expected = []byte{0xA2, 0x00, 0x02, 0x01, 0x41, 0x00, 0x00, 0x00}
 	if !bytes.Equal(frame, expected) {
@@ -60,7 +60,7 @@ func TestEncodeFrame(t *testing.T) {
 	r = *Reading(0x010c) // decimal value
 	val = 32.1           // 321 -> 0x0141
 	rcvr = uint16(0x68f)
-	frame = DataFrame(rcvr, val, r)
+	frame = DataFrame(rcvr, val, &r)
 
 	expected = []byte{0xD2, 0x0F, 0xFA, 0x01, 0x0C, 0x01, 0x41, 0x00}
 	if !bytes.Equal(frame, expected) {
